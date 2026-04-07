@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Optum Claim Appeals Process</title>
+  <style>
+    :root {
+      --bg: #f6faf8;
+      --card: #ffffff;
+      --text: #143642;
+      --muted: #5b6f7a;
+      --line: #d7e5e1;
+      --brand: #ff6f1f;
+      --brand-dark: #e25f14;
+      --brand-secondary: #0f8f7a;
+      --brand-secondary-soft: #e8f6f2;
+      --header-blue: #1c3689;
+      --danger: #b42318;
+      --shadow: 0 10px 30px rgba(15, 52, 66, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #f6faf8 0%, #eef6f4 100%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 28px 30px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--brand);
+      letter-spacing: -0.03em;
+    }
+
+    .hero-title {
+      text-align: right;
+    }
+
+    .hero-title h1 {
+      margin: 0;
+      font-size: 32px;
+      color: var(--header-blue);
+    }
+
+    .hero-title p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-note {
+      background: #f7f9ff;
+      color: var(--header-blue);
+      font-weight: 700;
+      text-align: center;
+      padding: 14px 20px;
+      border-top: 1px solid #dde5ff;
+      border-bottom: 1px solid #dde5ff;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 22px;
+      color: var(--header-blue);
+    }
+
+    .instructions-box {
+      border: 2px solid #aeb7c6;
+      background: #fbfcfe;
+      padding: 18px;
+      border-radius: 14px;
+    }
+
+    .instructions-box h3 {
+      margin: 0 0 12px;
+      color: var(--header-blue);
+      font-size: 20px;
+    }
+
+    .instructions-box ul {
+      margin: 0 0 16px 18px;
+      padding: 0;
+      color: #4d5f73;
+      line-height: 1.5;
+    }
+
+    .contact-block {
+      margin-top: 16px;
+      line-height: 1.6;
+      color: #4d5f73;
+    }
+
+    .contact-block strong {
+      color: var(--text);
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 12px;
+      color: #9a3412;
+      font-size: 14px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .summary-item {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff, #f9fcfb);
+    }
+
+    .summary-item label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .summary-item div {
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .form-card h2 {
+      margin-bottom: 8px;
+    }
+
+    .subtext {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .field,
+    .full-width {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fbfdfd;
+      padding: 14px;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .field label,
+    .full-width label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid #c9d7d3;
+      background: white;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px 14px;
+      margin-top: 8px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    .checkbox-row input {
+      width: auto;
+      transform: scale(1.05);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--brand);
+      color: white;
+    }
+
+    .btn:hover { background: var(--brand-dark); }
+
+    .btn.secondary {
+      background: var(--brand-secondary);
+    }
+
+    .status-msg {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--brand-secondary);
+      font-weight: 700;
+    }
+
+    .required::after {
+      content: ' *';
+      color: var(--danger);
+    }
+
+    @media (max-width: 980px) {
+      .grid,
+      .form-grid,
+      .summary-grid,
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-title {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <div class="hero-top">
+        <div class="logo">Optum</div>
+        <div class="hero-title">
+          <h1>Provider Dispute Resolution Request</h1>
+          <p>Mock standalone page for claim appeals and reconsideration intake</p>
+        </div>
+      </div>
+      <div class="hero-note">
+        Note: Submission of this form constitutes agreement not to bill the patient.
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <h2>Instructions</h2>
+        <div class="instructions-box">
+          <h3>Submission Guidance</h3>
+          <ul>
+            <li>Please complete the form below. Fields with an asterisk (*) are required.</li>
+            <li>Be specific when completing the description of dispute.</li>
+            <li>Provide additional information to support the description of the dispute. It is not necessary to resubmit the original claim.</li>
+          </ul>
+
+          <div class="contact-block">
+            You have several options for submitting your requests for reconsideration to Optum.<br /><br />
+            If you have a secure system, please submit reconsideration requests to <strong>claimdispute@optum.com</strong>.<br /><br />
+            Or mail the completed form to:<br />
+            <strong>Provider Dispute Resolution</strong><br />
+            <strong>PO Box 30781</strong><br />
+            <strong>Salt Lake City, UT 84130</strong>
+          </div>
+
+          <div class="note">
+            This form is for claim disputes and reconsiderations only. To submit a formal appeal, see the instructions listed on the back of the Explanation of Payment (EOP).
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary-item">
+            <label>Focused Claim</label>
+            <div>AB56789</div>
+          </div>
+          <div class="summary-item">
+            <label>Status</label>
+            <div>Denied</div>
+          </div>
+          <div class="summary-item">
+            <label>Denial Reason</label>
+            <div>Out of network</div>
+          </div>
+          <div class="summary-item">
+            <label>Member Contact</label>
+            <div>Dena H. Mahony</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card form-card">
+        <h2>Dispute / Appeal Intake Form</h2>
+        <div class="subtext">Built from the information shown on the provided Optum dispute form and prefilled for claim AB56789.</div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label class="required">Provider name</label>
+            <input type="text" value="Premier Regional Surgical Group" />
+          </div>
+          <div class="field">
+            <label class="required">Provider TIN</label>
+            <input type="text" value="98-7654321" />
+          </div>
+
+          <div class="field full-width">
+            <label>Provider address</label>
+            <input type="text" value="1611 Roy Acuff Pl, Nashville, Tennessee 37203, US" />
+          </div>
+
+          <div class="field full-width">
+            <label>Provider type</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-row"><input type="checkbox" /> MD</label>
+              <label class="checkbox-row"><input type="checkbox" /> Mental Health Professional</label>
+              <label class="checkbox-row"><input type="checkbox" /> Mental Health Institutional</label>
+              <label class="checkbox-row"><input type="checkbox" /> Hospital</label>
+              <label class="checkbox-row"><input type="checkbox" /> ASC</label>
+              <label class="checkbox-row"><input type="checkbox" /> SNF</label>
+              <label class="checkbox-row"><input type="checkbox" /> DME</label>
+              <label class="checkbox-row"><input type="checkbox" /> Rehab</label>
+              <label class="checkbox-row"><input type="checkbox" /> Home Health</label>
+              <label class="checkbox-row"><input type="checkbox" /> Ambulance</label>
+              <label class="checkbox-row"><input type="checkbox" checked /> Other</label>
+              <label class="checkbox-row" style="grid-column: 1 / -1;">Specify: <input type="text" value="Specialist procedure consult" style="margin-left: 8px; max-width: 320px;" /></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Claim information</label>
+            <div class="checkbox-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+              <label class="checkbox-row"><input type="radio" name="claimType" checked /> Single</label>
+              <label class="checkbox-row"><input type="radio" name="claimType" /> Multiple like claims</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Number of claims</label>
+            <input type="text" value="1" />
+          </div>
+
+          <div class="field">
+            <label class="required">Patient name</label>
+            <input type="text" value="Dena H. Mahony" />
+          </div>
+          <div class="field">
+            <label class="required">Date of birth (MM/DD/YYYY)</label>
+            <input type="text" value="08/14/1984" />
+          </div>
+
+          <div class="field">
+            <label>Member health plan ID</label>
+            <input type="text" value="OPT-44721985" />
+          </div>
+          <div class="field">
+            <label>Patient account number</label>
+            <input type="text" value="ACC-208944" />
+          </div>
+
+          <div class="field">
+            <label class="required">Service from date (MM/DD/YYYY)</label>
+            <input type="text" value="03/30/2026" />
+          </div>
+          <div class="field">
+            <label class="required">Service to date (MM/DD/YYYY)</label>
+            <input type="text" value="03/30/2026" />
+          </div>
+
+          <div class="field full-width">
+            <label>Claim ID number</label>
+            <input type="text" value="AB56789" />
+          </div>
+
+          <div class="field full-width">
+            <label>Please check the description that best fits</label>
+            <div class="checkbox-grid" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
+              <label class="checkbox-row"><input type="checkbox" checked /> Claims</label>
+              <label class="checkbox-row"><input type="checkbox" /> Authorizations</label>
+              <label class="checkbox-row"><input type="checkbox" /> Contract issues</label>
+              <label class="checkbox-row"><input type="checkbox" /> Medical records</label>
+            </div>
+          </div>
+
+          <div class="full-width">
+            <label class="required">Description of dispute</label>
+            <textarea>Please reconsider claim AB56789. The claim was denied as out of network. Supporting documentation is being submitted to request review of a potential network exception and to confirm whether reimbursement is appropriate under the member's coverage circumstances.</textarea>
+          </div>
+
+          <div class="field">
+            <label class="required">Contact name</label>
+            <input type="text" value="Dena H. Mahony" />
+          </div>
+          <div class="field">
+            <label class="required">Telephone number</label>
+            <input type="text" value="1-414-704-8422" />
+          </div>
+
+          <div class="field">
+            <label>Ext</label>
+            <input type="text" placeholder="If applicable" />
+          </div>
+          <div class="field">
+            <label>Fax number</label>
+            <input type="text" placeholder="(111-111-1111)" />
+          </div>
+
+          <div class="field">
+            <label class="required">Signature</label>
+            <input type="text" value="Dena H. Mahony" />
+          </div>
+          <div class="field">
+            <label>Submission channel</label>
+            <select>
+              <option selected>Email to claimdispute@optum.com</option>
+              <option>Mail to PO Box 30781, Salt Lake City, UT 84130</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="submitAppeal">Submit Request</button>
+          <button class="btn secondary" id="saveDraft">Save Draft</button>
+        </div>
+        <div class="status-msg" id="statusMsg"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const statusMsg = document.getElementById('statusMsg');
+    document.getElementById('submitAppeal').addEventListener('click', () => {
+      statusMsg.textContent = 'Provider dispute request submitted for claim AB56789.';
+    });
+    document.getElementById('saveDraft').addEventListener('click', () => {
+      statusMsg.textContent = 'Draft saved for the provider dispute request.';
+    });
+  </script>
+</body>
+</html>
